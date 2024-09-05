@@ -1,9 +1,58 @@
-﻿   @page "/"
+﻿    @page "/"
 @* @page "/cadastrar" *@
-
+@using BlazorWebAssembCurso.Models
 
 <Titulo Texto="Cadastro de Produtos"></Titulo>
+<Mensagem Msg="@msg"></Mensagem>
+
+<EditForm Model="@produto" OnSubmit="@Incluir">
+
+    <DataAnnotationsValidator/>
+    <ValidationSummary/>
+    <label class="text-muted"> Nome </label>
+    <InputText @bind-Value="produto.Nome" class="form-control mb-2" />
+
+    <label class="text-muted"> Preço </label>
+    <InputNumber TValue="double" @bind-Value="produto.Preco" class="form-control mb-2" />
+
+    <label class="text-muted"> Quantidade </label>
+    <InputNumber TValue="int" @bind-Value="produto.Quantidade" class="form-control mb-2" />
+
+    <button type="submit" class="btn btn-info mb-4"> Incluir</button>
+</EditForm>
+
+
+<div class="border shadow p-3">
+
+    <h3 class="text-danger">Produto Cadastrado</h3>
+    @produto.Nome
+    <br />
+    R$: @produto.Preco
+    <br />
+    @produto.Quantidade Unidades
+    <br />
+    Valor Total do Estoque: R$ @produto.ValorEstoqueTotal()
+    <br />
+</div>
+
+<button @onclick="ColocaDados" class="btn btn-primary">
+    Inserir
+</button>
 
 @code {
+    Produto produto = new Produto();
 
+    private string msg = "";
+
+    private void ColocaDados()
+    {
+        produto.Nome = "Caneta";
+        produto.Preco = 3.99;
+        produto.Quantidade = 10;
+    }
+
+    private void Incluir()
+    {
+        msg = "Produto cadastrado!";
+    }
 }

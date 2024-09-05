@@ -1,0 +1,13 @@
+﻿<div class="@sucesso" role="alert" style="@(string.IsNullOrEmpty(Msg) ? "display:none;" : "display:block;")">
+    <h2>@Msg</h2>
+</div>
+
+@code {
+    [Parameter]
+    public string Msg { get; set; } = "";
+
+
+    public string sucesso => !string.IsNullOrEmpty(Msg) ? "alert alert-success" : "";
+
+}
+
