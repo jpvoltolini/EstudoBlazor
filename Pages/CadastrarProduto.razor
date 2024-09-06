@@ -5,27 +5,32 @@
 <Titulo Texto="Cadastro de Produtos"></Titulo>
 <Mensagem Msg="@msg"></Mensagem>
 
-<EditForm Model="@produto" OnSubmit="@Incluir">
+<EditForm Model="@produto" OnValidSubmit="@Incluir"  OnInvalidSubmit="@Erro">
 
     <DataAnnotationsValidator/>
-    <ValidationSummary/>
+
     <label class="text-muted"> Nome </label>
     <InputText @bind-Value="produto.Nome" class="form-control mb-2" />
+    <ValidationMessage For="@(()=>produto.Nome)"></ValidationMessage>
+
 
     <label class="text-muted"> Preço </label>
     <InputNumber TValue="double" @bind-Value="produto.Preco" class="form-control mb-2" />
+    <ValidationMessage For="@(()=>produto.Preco)"></ValidationMessage>
+
 
     <label class="text-muted"> Quantidade </label>
     <InputNumber TValue="int" @bind-Value="produto.Quantidade" class="form-control mb-2" />
+    <ValidationMessage For="@(()=>produto.Quantidade)"></ValidationMessage>
 
-    <button type="submit" class="btn btn-info mb-4"> Incluir</button>
+    <button type="submit" class="btn btn-success mb-4"> Incluir</button>
 </EditForm>
 
 
 <div class="border shadow p-3">
 
     <h3 class="text-danger">Produto Cadastrado</h3>
-    @produto.Nome
+    @produto.Nome 
     <br />
     R$: @produto.Preco
     <br />
@@ -54,5 +59,10 @@
     private void Incluir()
     {
         msg = "Produto cadastrado!";
+    }
+
+    private void Erro()
+    {
+        msg = "Não foi possível Cadastrar! Tente novamente.";
     }
 }

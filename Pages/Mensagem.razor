@@ -6,8 +6,11 @@
     [Parameter]
     public string Msg { get; set; } = "";
 
-
-    public string sucesso => !string.IsNullOrEmpty(Msg) ? "alert alert-success" : "";
+    public string sucesso => !string.IsNullOrEmpty(Msg)
+                               ? (Msg.Contains("não", StringComparison.OrdinalIgnoreCase)
+                                  ? "alert alert-danger"
+                                  : "alert alert-success")
+                               : "";
 
 }
 
